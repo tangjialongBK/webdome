@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		#box{
+			position: absolute;
+			left:0;
+			top:0;
+			width:100px;
+			height:100px;
+			background: pink;
+		}
+		#btn{
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			width:5px;
+			height:5px;
+			background: red;
+		}
+	</style>
+<body>
+    <div id="box">
+    	<div id="btn"></div>
+    </div>
+</body>
+	<script>
+		var aBox = document.getElementById('box'),
+			aBtn = document.getElementById('btn');
+
+		addEvent(aBox,'mousedown',domDown)
+		addEvent(aBtn,'mousedown',domDown)
+		function domDown(e){
+				e=e||window.event;
+				if(e.stopPropagation){
+					e.stopPropagation();
+				}else{
+					e.cancelBubble=true;
+				}
+				target=e.target||e.srcElement;
+
+				if(target.id=='btn'){
+					var boxSizeL = this.parentNode.clientWidth,
+						boxSizeH = this.parentNode.clientHeight;
+				}else{
+					var initL = aBox.offsetLeft,
+						initT = aBox.offsetTop;
+				}
+					var downX = e.clientX,
+						downY = e.clientY;
+					
+			function domMove(e){
+				e=e||window.event;
+				var moveX = e.clientX-downX,
+					moveY = e.clientY-downY;
+				if(target.id=='btn'){
+					aBox.style.width=boxSizeL+moveX+'px';
+					aBox.style.height=boxSizeH+moveY+'px';
+				}else{
+					aBox.style.left=moveX+initL+'px';
+					aBox.style.top=moveY+initT+'px';
+				}
+					
+			}
+			function domUp(){
+				removeEvent(document,'mousemove',domMove)
+				removeEvent(document,'mouseup',domUp)
+			}
+			addEvent(document,'mousemove',domMove)
+			addEvent(document,'mouseup',domUp)
+		}
+
+			// 添加监听兼容
+			function addEvent(obj,type,fn){
+				if(obj.addEventListener){
+					obj.addEventListener(type,fn)
+				}else{
+					obj.attachEvent('on'+type,fn)
+				}
+			}
+			// 删除监听兼容
+			function removeEvent(obj,type,fn){
+				if(obj.removeEventListener){
+					obj.removeEventListener(type,fn)
+				}else{
+					obj.detachEvent(obj,'on'+type,fn)
+				}
+			}
+	</script>
+</html>
