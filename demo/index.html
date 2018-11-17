@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style type="text/css">
+	body, ul, li, p, i, h1, h2, h3, h4, h5 {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		font-style: normal;
+	}
+	.cart {
+		width: 1000px;
+		margin: 50px auto;
+	}
+	.cart > table {
+		width: 100%;
+		text-align: center;
+		border-collapse: collapse;
+	}
+	.cart .title {
+		width: 100%;
+		height: 50px;
+		background: #f60;
+		color: #fff;
+		font-weight: bold;
+	}
+	.cart .cell {
+		border-bottom: 1px solid #bbb;
+	}
+	.cart .cell td {
+		width: 25%;
+	}
+	.cart .cell img {
+		height: 120px;
+	}
+	.cart .cell td p {
+		width: 130px;
+		height: 30px;
+		margin: 0 auto;
+		border: 1px solid #ddd;
+	}
+	.cart .cell td p .minus, .cart .cell td p .add {
+		display: inline-block;
+		width: 30px;
+		height: 30px;#FDAE01FF
+		background: #bbb;
+		line-height: 30px;
+		cursor: pointer;
+	} 
+	.cart .cell td p .qty {
+		display: inline-block;
+		width: 70px;
+		height: 30px;
+		line-height: 30px;
+	}
+	.cart .sub {
+		width: 100%;
+		background: #FDAE01;
+	}
+	.cart .sub p {
+		margin-right: 50px;
+		color: #fff;
+		line-height: 50px;
+		text-align: right;
+	}
+	.cart .sub p span {
+		vertical-align: top;
+	}
+	.cart .cell .price, .cart .cell .sub-total, .cart .sub span {
+		font-size: 20px;
+		color: red;
+		font-weight: bold;
+	}
+</style>
+</head>
+<script src="jquery-3.3.1.min.js"></script>
+<body>
+    <div class="cart">
+    	<table>
+    		<tr class="title">
+    			<td>商品</td>
+    			<td>单价</td>
+    			<td>数量</td>
+    			<td>总计</td>
+    		</tr>
+    		<tr class="cell">
+    			<td><img src="images/shop1.jpg" alt=""></td>
+    			<td class="price">8</td>
+    			<td><p><span class="minus">-</span><span class="qty">0</span><span class="add">+</span></p></td>
+    			<td class="sub-total">0</td>
+    		</tr>
+    		<tr class="cell">
+    			<td><img src="images/shop2.jpg" alt=""></td>
+    			<td class="price">10</td>
+    			<td><p><span class="minus">-</span><span class="qty">0</span><span class="add">+</span></p></td>
+    			<td class="sub-total">0</td>
+    		</tr>
+    		<tr class="cell">
+    			<td><img src="images/shop3.jpg" alt=""></td>
+    			<td class="price">12.5</td>
+    			<td><p><span class="minus">-</span><span class="qty">0</span><span class="add">+</span></p></td>
+    			<td class="sub-total">0</td>
+    		</tr>
+    		<tr class="cell">
+    			<td><img src="images/shop4.jpg" alt=""></td>
+    			<td class="price">23</td>
+    			<td><p><span class="minus">-</span><span class="qty">0</span><span class="add">+</span></p></td>
+    			<td class="sub-total">0</td>
+    		</tr>
+    	</table>
+
+    	<div class="sub">
+    		<p>已选 : <span class="total-qty">0</span> 个</p>
+    		<p>合计 : <span class="total-price">0</span> ￥</p>
+    	</div>
+    </div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		//加
+		$('.add').attr('num',0).click(function(){//拿到对象自定义一个属性并给事件
+			var a=$(this).attr('num')//取出自定义属性值
+			a++;
+			$(this).attr('num',a);//把加过的结束重新赋值
+			fn.call($(this),a,'.add')
+		})
+		//减
+		$('.minus').click(function(){
+			var a=$('.add').eq($(this).index('.minus')).attr('num')
+			a--;
+			if(a<=0){
+				a=0;
+			}
+			$('.add').eq($(this).index('.minus')).attr('num',a);
+			fn.call($(this),a,'.minus')
+		})
+		//加减函数包
+		function fn(a,b){
+			$('.qty').eq($(this).index(b)).html(a).html();//取数量值
+			var tal=$('.qty').eq($(this).index(b)).html(a).html(),
+			    price=$('.price').eq($(this).index(b)).html();//价格值
+			var subTal= tal*price;//相乘
+			$('.sub-total').eq($(this).index(b)).html(subTal);//赋值总计
+			var leng=$('.sub-total').length;
+			var sum1=0,//统计合计
+				sum2=0;//统计已选
+			for(var i = 0;i<leng;i++){
+				sum1+=$('.sub-total').eq(i).html()*1;
+				sum2+=$('.qty').eq(i).html()*1;
+			}
+			$('.total-qty').eq(0).html(sum2);
+			$('.total-price').eq(0).html(sum1);
+		}
+	})
+	
+
+
+	var  mast = {p:'list',m:123,j:456,p:991}
+	var newMast = Object.keys(mast)
+	console.log( {...newMast} ) 
+</script>
+</html>
