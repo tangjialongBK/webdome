@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>飞机大战</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background-color: #000;
+		}
+		#wrap{
+			position:relative;
+			margin: 30px auto;
+			width: 300px;
+			height:  500px;
+			border: 5px solid #fff;
+		}
+		h1{
+			padding-top: 70px;
+			color: #fff;
+			font-size: 24px;
+			font-weight: 900;
+			text-align: center;
+		}
+		.nandu{
+			line-height: 30px;
+			text-align: center;
+			margin: 30px 0;
+			color: red;
+			font-size: 18px;
+			font-weight: 700;
+			letter-spacing: 10px;
+			cursor: pointer;
+		}
+		#wrap img{
+			position: absolute;
+			left:0;
+			top:0;
+		}
+		.op{
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 999;
+			width: 100px;
+			height: 30px;
+			line-height: 30px;
+			color: red;
+			font-size: 18px;
+			font-weight: 900;
+			text-align: center;
+		}
+		#box{
+			position: absolute;
+			left:50%;
+			margin-left: -100px;
+			top:50%;
+			margin-top:-200px;
+			width: 200px;
+			height: 400px;
+			background: #fff;
+		}
+		#box h2{
+			padding-top: 20px;
+			color: red;
+			font-size: 20px;
+			text-align: center;
+		}
+		#box p{
+			padding-top: 15px;
+			font-size: 16px;
+			color: #000;
+			text-align: center;
+		}
+		.opa{
+			padding-top: 30px;
+			font-size: 18px;
+			font-weight: 700;
+			color:blue !important;
+			cursor: pointer;
+		}
+	</style>
+<body>
+    <div id="wrap">
+    	<!-- <h1>飞机大战2.0版</h1>
+    	<div class="nandu">巨简单</div>
+    	<div class="nandu">正常</div>
+    	<div class="nandu">一般</div>
+    	<div class="nandu">困难</div>
+    	<div class="nandu">恶梦</div>
+    	<div class="nandu">作者</div> -->
+    </div>
+</body>
+	<script>
+		~function(){
+			//生成初始化界面
+			var owrap=document.getElementById('wrap'),
+				timer;
+			initFn();
+			function initFn(){
+				var	h1=document.createElement('h1'),
+					banBen=['巨简单','正常','一般','困难','恶梦','作者'];
+					h1.innerHTML='飞机大战2.0版';
+					owrap.appendChild(h1);
+			for (var i = 0; i < 6; i++) {
+					var div=document.createElement('div');
+					div.className='nandu';
+					div.innerHTML=banBen[i];
+					div.index=i;
+					div.onclick=function(e){
+						e=e||window.event;
+						strat(this.index,e)
+					}
+					owrap.appendChild(div)
+				}
+			}
+			//开始游戏
+			function strat(index,e){
+				owrap.innerHTML='';	
+				var oplane=wofang(index,e);
+				fushuFn();
+				difang(index,oplane);
+			}
+			// 生成敌方
+			function difang(index,plane){
+				var speed=[1000,400,200,100,20,2];
+				var myplane=plane;
+
+				//console.log( myplane.parentNode )
+				timer=setInterval(fn,speed[index]);
+				function fn(){
+					var diji=document.createElement('img');
+						diji.src="img/img/enemy.png";
+						diji.width=23;
+						diji.height=30;
+						diji.style.top=0;
+						diji.style.left=Math.random()*owrap.clientWidth-diji.width/2+'px';
+					owrap.appendChild(diji);
+					// 敌机下落速度
+					var speeds=Math.random()*2+1,// 0 2  3 5  下降速度
+						speedL=Math.random()*1+2; // 左运动的初始速度
+					xialuo();
+					// 敌机下落
+					function xialuo(){
+						var left=diji.offsetLeft+speedL;
+						// 飞机S形运动
+						if(left>=owrap.clientWidth-diji.width/2){
+							speedL=-2;
+							left=diji.offsetLeft+speedL
+							left=owrap.clientWidth-diji.width/2;
+						}
+						if(left<=0-diji.width/2){
+							left=0;
+							speedL=3;
+						}
+						diji.style.top=diji.offsetTop+speeds+'px';
+						diji.style.left=left+'px';
+						if(diji.offsetTop>=owrap.clientHeight-diji.height){
+							owrap.removeChild(diji);
+						}else{
+							// 检测子弹和飞机相撞后清除当面的对象并暂停当面的动画调用
+							var biu1=document.getElementsByClassName('biu1'),
+								biu2=document.getElementsByClassName('biu2');
+							for (var i = 0; i < biu1.length; i++) {
+								if(isCollision(diji,biu1[i])||isCollision(diji,biu2[i])){
+									cancelAnimationFrame(biu1[i].timer);
+									cancelAnimationFrame(biu2[i].timer);
+									Boom(diji,'')
+									owrap.removeChild(diji);
+									owrap.removeChild(biu1[i]);
+									owrap.removeChild(biu2[i]);
+									document.getElementsByClassName('op')[0].innerHTML=owrap.num+=10;
+									return false;
+								}
+							}
+							// 主角（我军）与敌机相撞后的情况
+							if( myplane.parentNode&&isCollision(diji,myplane) ){
+								document.onmousemove=null;
+								clearInterval(timer);
+								clearInterval(myplane.timer);
+								Boom(diji,'');
+								Boom(myplane,'2');
+								owrap.removeChild(diji);
+								owrap.removeChild(myplane);
+								return false;
+							}
+							myplane.parentNode&&requestAnimationFrame(xialuo);
+						}
+					}
+				}
+			}
+
+			// 生成我方飞机
+			function wofang(index,e){
+				var test=index;
+				//  生成我军主战斗机
+				var plane=document.createElement('img');
+					plane.src="img/img/plane.png";
+					plane.width=60;
+					plane.height=30;
+					plane.style.top=e.pageY-getoffset(owrap).top-plane.height/2+'px';
+					plane.style.left=e.pageX-getoffset(owrap).left-plane.width/2+'px';
+					owrap.appendChild(plane);
+					// 限制移动的范围
+					var leftMax=owrap.clientWidth-plane.width/2,
+						topMax =owrap.clientHeight-plane.height;
+					// 我军的
+					document.onmousemove=function(e){
+						var left=e.pageX-getoffset(owrap).left-plane.width/2,
+							top=e.pageY-getoffset(owrap).top-plane.height;
+							top=Math.min(top,topMax);
+							top=Math.max(top,0);
+							left=Math.min(left,leftMax);
+							left=Math.max(left,-plane.width/2);
+							plane.style.top=top+'px';
+							plane.style.left=left+'px';
+					}
+					//console.log( plane.parentNode  )
+					// 生成我军的子弹
+					var speed=[1000,400,200,100,20,2];
+					plane.timer=setInterval(biuFn,speed[index])
+					function biuFn(){
+						//  一号子弹
+							var bius=document.createElement('img');
+								bius.src='img/img/bullet.png';
+								bius.width=6;
+								bius.height=22;
+								bius.className='biu1';
+								bius.style.left=plane.offsetLeft+plane.width/1.5-bius.width/2+'px';
+								bius.style.top=plane.offsetTop-plane.height+'px';
+						//  二号子弹
+							var biuto=bius.cloneNode(false);
+								biuto.width=6;
+								biuto.height=22;
+								biuto.className='biu2';
+								biuto.style.left=plane.offsetLeft+plane.width/3-biuto.width/2+'px';
+								biuto.style.top=plane.offsetTop-plane.height+'px';
+								owrap.appendChild(bius);
+								owrap.appendChild(biuto);
+							// 子弹运动
+						var speedBiu=[2,4,6,8,10,12];//不同难度不同速度
+						//biuFn1(bius);
+						biuFn1();
+						biuFn2();
+						//  一号子弹的运动
+						function biuFn1(){
+							bius.style.top=bius.offsetTop-speedBiu[test]+'px';
+							if(bius.offsetTop<=0){
+								owrap.removeChild(bius);
+							}else{
+								plane.parentNode&&(bius.timer=requestAnimationFrame(biuFn1));
+							}
+						}
+						//  二号子弹的运动
+						function biuFn2(){
+							biuto.style.top=biuto.offsetTop-speedBiu[test]+'px';
+							if(biuto.offsetTop<=0){
+								owrap.removeChild(biuto);
+							}else{
+								plane.parentNode&&(biuto.timer=requestAnimationFrame(biuFn2));
+							}
+						}
+					}
+				return plane;	  
+			}
+			// 碰撞检测
+			function isCollision(difn,wofn){
+					// 我军
+				var T1=wofn.offsetTop,
+					L1=wofn.offsetLeft,
+					R1=L1+wofn.clientWidth,
+					B1=T1+wofn.clientHeight;
+					// 敌方
+				var T2=difn.offsetTop,
+					L2=difn.offsetLeft,
+					R2=L2+difn.clientWidth,
+					B2=T2+difn.clientHeight;
+				// 检测
+				return !(B2<T1||R2<L1||T2>B1||L2>R1);
+			}
+			//Boom特效
+            function Boom(obj,n) {
+                var img = document.createElement('img');
+                    img.src = "img/img/boom"+n+".png";
+                    img.width = obj.width;
+                    img.height = obj.height;
+                    img.style.top = obj.offsetTop + "px";
+                    img.style.left = obj.offsetLeft + "px";
+                owrap.appendChild(img);
+                setTimeout(function () {
+                    img.parentNode&&owrap.removeChild(img);
+                    n&&gameover();
+                },n?800:100)
+
+            }
+
+            // 分数
+            function fushuFn(){
+            		owrap.num=0;
+            		var ap=document.createElement('span');
+            			ap.className='op';
+            			ap.innerHTML=owrap.num;
+            		 owrap.appendChild(ap);
+            }	
+            // gameOver
+            function gameover(){
+            	var box=document.createElement('div');
+            		box.id='box';
+            		box.innerHTML='<h2>Game Over</h2><p>得分：'+owrap.num+'</p>';
+            	var p=document.createElement('p');
+            		p.className='opa';
+            		p.innerHTML='再搞一局';
+            		p.onclick=function(){
+            			owrap.innerHTML='';
+            			initFn();
+            		}
+            		box.appendChild(p);
+            		owrap.appendChild(box);
+            }
+
+			// 获取定位父级
+			function getoffset(obj){
+				var json={
+					top:0,
+					left:0
+				}
+				while (obj!==document.body) {
+					json.top=obj.offsetTop;
+					json.left=obj.offsetLeft;
+					obj=obj.offsetParent;
+				}
+				return json;
+			}
+		}();
+	</script>
+</html>
