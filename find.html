@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			padding: 0;
+			margin:0;
+		}
+		#wrap{
+			width:500px;
+			height: auto;
+			margin:30px auto;
+			
+		}
+		.box{
+			height:30px;
+			padding: 2px 30px;
+			border-bottom: 1px solid #ccc;
+			font-size: 0;
+		}
+		input{
+			outline: none;
+			width:150px;
+			height:28px;
+			padding:0 5px;
+			line-height: 30px;
+			border:1px solid pink;
+			vertical-align: middle;
+		}
+		button{
+			outline: none;
+			vertical-align: middle;
+			width:50px;
+			height:31px;
+			border:1px solid pink;
+			background: pink;
+		}
+		p{
+			text-align: justify;
+			line-height: 30px;
+		}
+		p span{
+			color:red;
+			font-size: 18px;
+			font-weight: bold;
+		}
+	</style>
+<body>
+    <div id="wrap">
+    	<div class="box">
+    		<input type="text">
+    		<button>查找</button>
+    		<input type="text">
+    		<button>替换</button>
+    	</div>
+    	<p>
+    		中国疆域辽阔、民族众多，先秦时期的华夏族在中原地区繁衍生息，到了汉代通过文化交融使汉族正式成型，奠定了中国主体民族的基础。后又通过与周边民族的交融，逐步形成统一多民族国家的局面，而人口也不断攀升，宋代中国人口突破一亿，清朝时期人口突破四亿，到2005年中国人口已突破十三亿。
+    	</p>
+    </div>
+</body>
+	<script>
+		var oInp=document.getElementsByTagName('input'),
+			oBtn=document.getElementsByTagName('button'),
+			oP=document.getElementsByTagName('p')[0],
+			textC=oP.innerHTML;//先把内容拿出来
+			for(var i=0;i<oBtn.length;i++){
+				oBtn[i].index=i;//索引
+				if(oBtn[i].index==0){
+					oBtn[i].onclick=function(){
+						var	Content=oInp[this.index].value;//拿到当前的value
+						var NewArry=textC.split(Content);//切割文本
+						oP.innerHTML= NewArry.join('<span>'+Content+'</span>');//组数拼接成字符串
+						}
+					}
+					if(oBtn[i].index==1){
+							oBtn[i].onclick=function(){
+							var	Content=oInp[0].value;//查找到的value值
+							var addCon=oInp[this.index].value;//当前的value值
+							var NewArry=textC.split(Content);//切割文本
+							oP.innerHTML=NewArry.join(addCon);//把新新数组拼接到文本去
+							textC=NewArry.join(addCon);//更新之前存好的文本方便多次切割
+						}
+					}
+				}
+			
+	</script>
+</html>
