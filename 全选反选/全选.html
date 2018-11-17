@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix:after{
+			content:'';
+			display: block;
+			clear:both;
+		}
+		#box{
+			width: 500px;
+			height: 400px;
+			margin: 50px auto;
+
+		}
+		#box ul{
+			list-style: none;
+			
+		}
+		#box ul li{
+			width:100%;
+			height:30px;
+			line-height: 30px;
+			text-indent:50px;
+			border-radius: 5px;
+			background:url('img/ck.png') no-repeat 5px; 
+			cursor:pointer;
+
+		}
+		#box ul li.on{
+			background:url('img/cked.jpg') no-repeat 5px;
+		}
+		#box ul li+li{
+			margin-top:3px;
+		}
+		#box ul li:nth-child(2n){
+			background-color:blue;
+		}
+		#box ul li:nth-child(2n+1){
+			background-color:pink;
+		}
+		.btnCked{
+			list-style: none;
+			height:30px;
+			line-height: 30px;
+			width:100%;
+			margin-top: 3px;
+
+		}
+		.btnCked li{
+			float:left;
+			width:auto;
+			height:100%;
+			margin-right: 5px;
+			padding:0 10px;
+			text-indent:30px;
+			background: url('img/ck.png') no-repeat 5px;
+			background-color:blue;
+			border-radius: 5px;
+			cursor:pointer;
+		}
+		.btnCked li.on{
+			background:url('img/cked.jpg') no-repeat 5px;
+			background-color:blue;
+		}
+		.btnCked li.clean{
+			background:none;
+			background-color:blue;
+			text-indent: 0;
+		}
+	</style>
+<body>
+    <div id="box">
+    	<ul class='onebox'>
+    		<li>如果这是真的呢？</li>
+    		<li>星期天一起去爬山。</li>
+    		<li>你这样真的好吗？</li>
+    		<li>还有没有更好的方法。</li>
+    		<li>前端的路真的很长吗？</li>
+    		<li>要怎么样才能学好英文？</li>
+    		<li>有点皮了！</li>
+    	</ul>
+    	<ol class="btnCked clearfix">
+    		<li>全选</li>
+    		<li class='clean'>反选</li>
+    	</ol>
+    </div>
+</body>
+	<script>
+		var oUl=document.getElementsByClassName('onebox')[0],
+			oUli=oUl.getElementsByTagName('li'),
+			oLi=document.getElementsByClassName('btnCked')[0],
+			oOli=oLi.getElementsByTagName('li'),
+			num=0;//计数器
+ 			
+			//单选
+			for(var i=0,length=oUli.length;i<length;i++){
+				oUli[i].index=i;//绑定一个索引值
+				oUli[i].off=true;//每个绑定个开关
+				oUli[i].onclick=function(){
+					if(this.off){//开的时候
+						this.className='on';//添加类名
+						num++;//加类名的时候记录li个数
+						//console.log(num)
+					}else{//关的时候取消类名
+						this.className='';
+						num--;//取消类名的时候记录li个数
+						//console.log(num)
+					}
+					this.off=!this.off;//取反
+						if(num==length){//如果计算器的个数==li长度就全选
+						oOli[0].className+=' on';
+						oOli[0].cked=false;//全选的时候为真这时候开关要手动关了
+					}else{//如果li长度小于计算器
+						oOli[0].className='';
+						oOli[0].cked=true;//走这表示开关为假，所以要手动打开
+					}
+				}
+			}
+			//全选
+			oOli[0].cked=true;//绑定一个开关
+			oOli[0].onclick=function(){
+				if(this.cked){//真的时候
+					for( i=0,length=oUli.length;i<length;i++){
+						oUli[i].className='on';//所有的li加个类名
+						oUli[i].off=false;//此时开关是真的状态，所以要手动关
+					}
+					num=length;//如果是全选此时num等于li长度，此步是不让计数器超出li长度
+					this.className+=' on';
+				}else{//假的时候
+					for( i=0,length=oUli.length;i<length;i++){
+						oUli[i].className='';
+						oUli[i].off=true;
+					}
+					this.className='';
+					num=0;//当计算器计到0的时候让它等于0
+				}
+				this.cked=!this.cked;
+			};
+
+			//反选
+			oOli[1].onclick=function(){
+				for( i=0,length=oUli.length;i<length;i++){
+						oUli[i].off=!oUli[i].off;//取反开关，当所点击的对象为真时，剩下的就取反，因为默认为真
+						//console.log(oUli[i].off)
+					if(oUli[i].off){
+						oUli[i].className='';						
+					}else{
+						oUli[i].className='on';
+					}
+
+				}
+				//console.log(num)
+				num=length-num;//做一条件的开关   如果总数减去计数器的数等于长度就全选，不等于就去掉全选类名   因为num有等于0的可能所以长度减去0还是长度
+				//console.log(num)
+				if(num==length){
+					oOli[0].className+=' on';
+					oOli[0].cked=true;
+					
+				}else{
+					oOli[0].className='';
+					oOli[0].cked=false;
+	
+				}
+			}
+	</script>
+</html>
