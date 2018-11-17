@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<link rel="stylesheet" href="iconfont/iconfont.css" type="text/css">
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			background: rgba(11,11,11,.2);
+		}
+		a{
+			text-decoration:none;
+			color:#000;
+		}
+		#wrap{
+			position:relative;
+			width: 600px;
+			height: 400px;
+			margin: 50px auto;
+			border:1px solid #000;
+			overflow: hidden;
+		}
+		#wrap ul{
+			list-style: none;
+			position: absolute;
+			left:0;
+			top:0;
+			height:auto;
+			width:5000px;
+		}
+		ul li{
+			float: left;
+			width:auto;
+			height:auto;
+		}
+		ul li img{
+			width:600px;
+			height:400px;
+		}
+		.box{
+			position: absolute;
+			left:50%;
+			bottom:20px;
+			margin-left: -80px;
+			width:160px;
+			height:20px;
+			//background: red;
+			font-size:0;
+		}
+		.box > a{
+			display: inline-block;
+			width:20px;
+			height:20px;
+			margin:0 0 0 5px;
+			border-radius: 50%;
+			background: #fff;
+			cursor:pointer;
+		}
+		.box > a.on{
+			position: absolute;
+			left:0;
+			top:0;
+			background: #000;
+			opacity: 1;
+		}
+		#wrap .pre,#wrap .next{
+			position: absolute;
+			width:50px;
+			height:40px;
+			text-align: center;
+			line-height: 40px;
+			background: rgba(10,10,10,.2);
+			font-weight: bold;
+			font-size: 33px;
+			top:50%;
+			margin-top: -20px;
+		}
+		#wrap .pre{
+			left:0;
+		}
+		#wrap .next{
+			right:0;
+		}
+
+	</style>
+<body>
+    <div id="wrap">
+    	<ul>
+    		<li>
+    			<img src="img/1.jpg" alt="">
+    		</li>
+    		<li>
+    			<img src="img/2.jpg" alt="">
+    		</li>
+    		<li>
+    			<img src="img/3.jpg" alt="">
+    		</li>
+    		<li>
+    			<img src="img/4.jpg" alt="">
+    		</li>
+    		<li>
+    			<img src="img/5.jpg" alt="">
+    		</li>
+    		<li>
+    			<img src="img/6.jpg" alt="">
+    		</li>
+    		<li>
+    			<img src="img/1.jpg" alt="">
+    		</li>
+    	</ul>
+    	<div class="box">
+    		<a class="on"></a>
+    		<a></a>
+    		<a></a>
+			<a></a>
+			<a></a>
+			<a></a>
+			<a></a>
+    	</div>
+    	<a class="pre iconfont icon-back" href="javascript:void(0)"></a>
+    	<a class="next iconfont icon-you1" href="javascript:void(0)"></a>
+    </div>
+    
+</body>
+	<script>
+		fn();
+		function fn(){
+			window.requestAnimationFrame=window.requestAnimationFrame||function(mc){
+				setInterTime(mc, 1000/60)
+			};
+			var aWrap = document.getElementById('wrap'),
+			 	oUl = document.getElementsByTagName('ul')[0],
+				oLi = oUl.getElementsByTagName('li'),
+				oBtnbox = document.getElementsByClassName('box')[0],
+				oA = oBtnbox.getElementsByTagName('a'),
+				oPre = document.getElementsByClassName('pre')[0],
+				oNext = document.getElementsByClassName('next')[0],
+				index = 0,
+				that,
+				timer,
+				date = new Date();
+   				// next右点击
+   			for(var i = 1;i < oA.length;i++){
+   				oA[i].num = i-1;
+   				oA[i].addEventListener('click',oAbtn)
+   				function oAbtn(){
+   					that=this;
+   					animation(oUl,{
+   						left:-this.num*600
+   					},500)
+   					if(this.num-index===1||this.num-index===-1){
+   						animation(oA[0],{
+   						left:this.num*25
+   						},500)
+   					}else{
+   						animation(oA[0],{
+   							opacity:0
+   						},250,function(){
+   							this.style.left=that.num*25+'px';
+   							animation(this,{
+   								opacity:1
+   							},250)
+   						})
+   					}
+   					index=this.num;
+   				}
+   			}
+
+   			oNext.addEventListener('click',next)
+   			function next(){
+   				//alert(1)
+   				if(new Date()-date>500){
+   					index++;
+   					if(index!==oLi.length-1){
+   						console.log(index)
+   						animation(oA[0],{
+   							left:index*25
+   						},500)
+   					}else{
+   						animation(oA[0],{
+   							opacity:0
+   						},250,function(){
+   							this.style.left=0;
+   							animation(this,{
+   								opacity:1
+   							},250)
+   						})
+   					}
+
+   				animation(oUl,{
+   					left:index*-600
+   					},500,function(){
+   						if(index>=oLi.length-1){
+   							oUl.style.left=0;
+   							index=0;
+   						}
+   					})
+   				}
+   				date=new Date();
+   			}
+   			// pre左点击
+   			oPre.addEventListener('click',pre)
+   			function pre(){
+   				if(new Date()-date>500){
+   					if(index==0){
+   						oUl.style.left=-(oLi.length-1)*600+'px'
+   						index=oLi.length-1;
+   						animation(oA[0],{
+   							opacity:0
+   						},250,function(){
+   							this.style.left=(oA.length-2)*25+'px';
+   							animation(this,{
+   								opacity:1
+   							},250)
+   						})
+   					}
+   					index--;
+   					if(index !== oA.length-2){
+   						animation(oA[0],{
+   							left:index*25
+   						},500)
+   					}
+   					animation(oUl,{
+   					left:index*-600
+   					},500)
+   				}
+   				date=new Date();
+   			}
+   			// 自动轮播
+   			timer=setInterval(next,2500);
+   			aWrap.addEventListener('mouseenter',stop)
+   			aWrap.addEventListener('mouseleave',strat)
+   			function stop(){
+   				clearInterval(timer);
+   			}
+   			function strat(){
+   				timer=setInterval(next,2500);
+   			}
+   			// 运动框架
+   			function animation(obj,json,time,callblack){
+   				function getStyle(){
+   					return obj.currentStyle || getComputedStyle(obj);
+   				}
+   				var init={},tarGet={},s={};
+   					for(var attr in json){
+   						init[attr]=parseFloat(getStyle(obj)[attr]);
+   						tarGet[attr]=parseFloat(json[attr]);
+   						s[attr] = tarGet[attr] - init[attr];
+   						if(!s[attr]){
+                alert(1)
+   							delete s[attr];
+   							delete json[attr];
+   						}
+   					}
+   				var initTime=new Date();
+   				(function play(){
+   					var differ = (new Date() - initTime)/time;
+   					if(differ>=1){
+   						differ=1;
+   					}else{
+   						requestAnimationFrame(play);
+   					}
+   					for(var attr in json){
+   						var val = differ*s[attr]+init[attr];
+   						switch (attr) {
+						case 'opacity':
+							obj.style.opacity = val;
+							obj.style.filter = "alpha(opacity="+val*100+")";
+							break;
+						case 'zIndex':
+							obj.style.zIndex = val;
+							break;
+						default:
+							obj.style[attr] = val + "px"
+							break;
+						}
+   					}
+   					if(differ === 1 && callblack){
+							callblack.call(obj);
+					}
+   				})();
+   			}
+		}
+	</script>
+</html>
