@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		#box{
+			width:400px;
+			height:300px;
+			border:1px solid #bbb;
+			margin:50px auto;
+			padding: 10px;
+		}
+		.content{
+			position: relative;
+			height:30px;
+			line-height: 30px;	
+			margin-bottom: 5px;
+		}
+		.content p{
+			display: inline-block;
+			width:300px;
+			height:100%;
+			border:1px solid #ccc;
+			vertical-align: middle;
+		}
+		.content input{
+			outline: none;
+			border:1px solid #ccc;
+			line-height: 30px;
+		}
+		.Text{
+			position: absolute;
+			left:0;
+			top:1px;
+			display: none;
+			width:300px;
+
+		}
+		.btn{
+			width:60px;
+			letter-spacing: 2px;
+			vertical-align: middle;
+		}
+	</style>
+<body>
+    <div id="box">
+    	<div class="content">
+    		<p>请入内容</p><input class='Text' type="text" ><input class='btn' type="submit" value="修改">
+    	</div>
+    	<div class="content">
+    		<p>请入内容</p><input class='Text' type="text" ><input class='btn' type="submit" value="修改">
+    	</div>
+    	<div class="content">
+    		<p>请入内容</p><input class='Text' type="text" ><input class='btn' type="submit" value="修改">
+    	</div>
+    	<div class="content">
+    		<p>请入内容</p><input class='Text' type="text" ><input class='btn' type="submit" value="修改">
+    	</div>
+    	<div class="content">
+    		<p>请入内容</p><input class='Text' type="text" ><input class='btn' type="submit" value="修改">
+    	</div>
+    	<div class="content">
+    		<p>请入内容</p><input class='Text' type="text" ><input class='btn' type="submit" value="修改">
+    	</div>
+    	<div class="content">
+    		<p>请入内容</p><input class='Text' type="text" ><input class='btn' type="submit" value="修改">
+    	</div>
+    	<div class="content">
+    		<p>请入内容</p><input class='Text' type="text" ><input class='btn' type="submit" value="修改">
+    	</div>
+    </div>
+</body>
+	<script>
+		var oText=document.getElementsByClassName('Text'),
+			oBtn=document.getElementsByClassName('btn'),
+			oP=document.getElementsByTagName('p');
+			
+			for (var i=0;i<oBtn.length;i++) {
+				oBtn[i].index=i;
+				oBtn[i].onof=true;
+				oBtn[i].onclick=function(){
+				if(this.onof){
+					oText[this.index].style.display='block';
+					this.value='确认';
+				}else{
+					this.value='修改';
+					oText[this.index].style.display='none';
+				}
+					this.onof=!this.onof;
+					oP[this.index].innerHTML=oText[this.index].value;					
+			}
+		}
+	</script>
+</html>
