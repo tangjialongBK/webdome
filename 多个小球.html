@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		.box{
+			position:absolute;
+			left:0;
+			top:0;
+			width:50px;
+			height:50px;
+			box-shadow:0 0 55px rgba(18,18,18,.3) inset;
+			border-radius: 50%;
+		}
+	</style>
+<body>
+
+</body>
+	<script>
+		fn();
+		function fn(){
+			ball(20);
+			function ball(a){
+				for (var i = 0; i < a; i++) {
+					var odiv = document.createElement('div');
+						odiv.speedL=2 + Math.ceil(Math.random()*i);
+						odiv.speedT=2 + Math.ceil(Math.random()*i);
+						odiv.className='box';
+						odiv.style.background=rgb();
+						document.body.appendChild(odiv);
+				}
+			}
+			//console.log(a)
+			var obox = document.getElementsByClassName('box'),
+				maxH = document.documentElement.clientHeight-obox[0].offsetHeight,
+				maxW = document.documentElement.clientWidth-obox[0].offsetWidth;
+			play();
+			setInterval(play,1000/60)
+			function play(){
+				for (var i = 0; i < obox.length; i++) {
+					var left = obox[i].offsetLeft+obox[i].speedL,
+						top = obox[i].offsetTop+obox[i].speedT;
+						if(top>=maxH){
+							obox[i].speedT=-obox[i].speedT;
+							top=maxH;
+							obox[i].style.background = rgb();
+						}
+						if(left>=maxW){
+							obox[i].speedL=-obox[i].speedL;
+							left=maxW;
+							obox[i].style.background = rgb();
+						}
+						if(left<=0){
+							obox[i].speedL=-obox[i].speedL;
+							left=0;
+							obox[i].style.background = rgb();
+						}
+						if(top<=0){
+							obox[i].speedT=-obox[i].speedT;
+							top=0;
+							obox[i].style.background = rgb();
+						}
+						obox[i].style.left=left+'px';
+						obox[i].style.top=top+'px';
+				}
+			}
+			//console.log(rgb())
+			function rgb(){
+				var r=Math.floor(Math.random()*256),
+					g=Math.floor(Math.random()*256),
+					b=Math.floor(Math.random()*256),
+					a=Math.random().toFixed(1);
+				return "rgba("+r+','+g+','+b+','+a+")";
+			}
+		}
+	</script>
+</html>
