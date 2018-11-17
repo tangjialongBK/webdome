@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<style>
+	#wrap{
+		position: relative;
+		width: 500px;
+		height: 400px;
+		background: url(img/timg.jpg)no-repeat center/cover;
+		margin:auto;}
+	.box{
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		color: #fff;
+		background: #000;
+		cursor: pointer;
+	}	
+</style>
+<body>
+    <div id="wrap">
+    	<!-- <div class="box"></div> -->
+    </div>
+</body>
+<script>
+	var owrap=document.getElementById('wrap'),
+		num=0;
+		for (var i = 0; i < 80; i++) {
+			var adiv=document.createElement('div');
+				adiv.className='box';
+				adiv.setAttribute('onff', true);
+				adiv.style.top=Math.floor(i/10)*50+'px';
+				adiv.style.left=(i%10)*50+'px';
+				adiv.onmouseenter=function(){
+					if(this.getAttribute('onff')==='true'){
+						num++;
+						if(num>=40){
+							owrap.innerHTML=''
+						}
+						this.setAttribute('onff', false);
+					}
+					this.style.opacity = '0';
+				}
+				owrap.appendChild(adiv)
+		}
+</script>
+</html>
