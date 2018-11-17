@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		#box{
+			position: relative;
+			width: 400px;
+			height:400px;
+			margin:auto;
+			overflow: hidden;
+			border:1px solid #bbb;
+		}
+		#box .up,#box .down{
+			position: absolute;
+			z-index: 999;
+			height:30px;
+			width:100%;
+			line-height: 30px;
+			background: pink;
+			text-align: center;
+			color:red;
+			font-size: 18px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		.up{
+			top:0;
+		}
+		.down{
+			bottom:0;
+			left:0;
+		}
+		.upbox{
+			position: absolute;
+			top:30px;
+			width:380px;
+			padding:0 10px;
+			height:800px;
+			background: rgba(17,13,13,.2);
+		}
+		.upbox p{
+			height:auto;
+			letter-spacing: 3px;
+			text-indent: 20px;
+			font-weight: normal;
+			line-height: 18px;
+			text-align: justify;
+			color:#000;
+		}
+	</style>
+<body>
+    <div id="box">
+    	<p class='up'>向上</p>
+    	<div class="upbox">
+				<p>
+					现在社会太过浮躁，无论是老师，学生，还是工农阶级，资产阶级，似乎更加热衷于在自身良好的情况下谋求更好的发展，于是就多了各种快餐式教育，各种为盈利不择手段的商业模式。所以说学习知识的前提也是先学习“人性”。
+				</p>
+				<p>
+					随着社会的发展，功利的色彩似乎要遮住了人性，所以我认为一个人的理想是不应该与人性剥离开来的，人生若能体现出“人性”，便无憾了。那么所谓的人性具体指的是什么呢？为国家尽忠，为长者尽孝，为兄弟尽义，为朋友尽信，为陌生人尽爱心等。
+				</p>
+				<p>
+					这是我对大学四年的规划，这是我正在做的事。记得上次学生会干部换届选举时，一位学姐讲述了自己去贵州支教的经历，让人不禁感动落泪。作为一个学生，至少她知道学以致用，去帮助他人，在别人做暑期工赚外快的时候，她在山区为学生默默奉献（资金是很大缺口，路费都是自己掏的腰包）一个人在不损害自己利益的情况下帮助别人可能很容易，但愿意付出金钱，精力去帮助别人的是最难能可贵的了，可能也是因为这一次演讲，让我觉得人生的意义不在于学位证书，而在于播种知识；不在于高官厚禄，而在于默默奉献。
+				</p>
+				<p>
+					这是我对大学四年的规划，这是我正在做的事。记得上次学生会干部换届选举时，一位学姐讲述了自己去贵州支教的经历，让人不禁感动落泪。作为一个学生，至少她知道学以致用，去帮助他人，在别人做暑期工赚外快的时候，她在山区为学生默默奉献（资金是很大缺口，路费都是自己掏的腰包）一个人在不损害自己利益的情况下帮助别人可能很容易，但愿意付出金钱，精力去帮助别人的是最难能可贵的了，可能也是因为这一次演讲，让我觉得人生的意义不在于学位证书，而在于播种知识；不在于高官厚禄，而在于默默奉献。
+				</p>
+				<p>
+					这是我对大学四年的规划，这是我正在做的事。记得上次学生会干部换届选举时，一位学姐讲述了自己去贵州支教的经历，让人不禁感动落泪。作为一个学生，至少她知道学以致用，去帮助他
+				</p>
+		</div>	
+    	<p class='down'>向下</p>
+    </div>
+</body>
+	<script>
+		var oUp=document.getElementsByClassName('up')[0],
+			oDown=document.getElementsByClassName('down')[0],
+			oUpbox=document.getElementsByClassName('upbox')[0],
+			timer,num=5;
+			var a=parseFloat(getStyle(oUpbox,'top'));//拿到初始值
+			oUp.onmousedown=function(){
+				timer=setInterval(function(){
+					a-=num;//初始值的基础上每次-5
+					if(a<=-400){
+						a=-400;//小于超出的高度时就等于它
+						clearInterval(timer)//清除定时器
+					}
+					oUpbox.style.top=a+'px'
+				}, 1000/50)
+			}
+			
+			oDown.onmousedown=function(){
+				timer=setInterval(function(){
+				a+=5;//基础上每次+5
+				if(a>=30){
+					a=30;//大于30初始值时就等于
+					clearInterval(timer)//清除定时器
+					}
+					oUpbox.style.top=a+'px'
+				},1000/55);
+			}
+			document.onmouseup=function(){
+				clearInterval(timer);//清除定时器
+			}
+			
+			function getStyle(obj,attr){
+				return	window.getComputedStyle?window.getComputedStyle(obj)[attr]:obj.currentStyle[attr];
+			}
+	</script>
+</html>
