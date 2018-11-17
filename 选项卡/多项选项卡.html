@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>多项选项卡</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		body{
+			background: rgba(12,12,12,.2);
+		}
+		a{
+			text-decoration: none;
+		}
+		#wrap{
+			width:550px;
+			height:400px;
+			margin:50px auto;
+			position: relative;
+		}
+		.nav-box{
+			position: absolute;
+			top:0;
+			left:-100px;
+			width:100px;
+			height:30px;
+			
+		}
+		.nav-box a{
+			display: block;
+			height:30px;
+			margin-bottom: 3px;
+			background: #000;
+			line-height: 30px;
+			color:#fff;
+			text-align: center;
+		}
+		.nav-box .on{
+			background: #fff;
+			color:#000;
+		}
+		.case{
+			position: relative;
+			left:0;
+			width: 100%;
+			height:100%;
+			display: none;
+		}
+		.case img{
+			width:550px;
+			height:370px;
+			border-radius: 5px; 
+		}
+		.case .floot{
+			position: absolute;
+			bottom: 0px;
+			height:30px;
+			width: 100%;
+			background: #000;
+		}
+		.floot i{
+			font-style: normal;
+			float: right;
+			width:30px;
+			height:30px;
+			background: #fff;
+			font-weight: bold;
+			color:#000;
+			text-align: center;
+			margin-left: 5px;
+			line-height: 30px;
+			cursor:pointer;
+		}
+		.floot .on{
+			color:#fff;
+			background: pink;
+		}
+	</style>
+<body>
+    <div id="wrap">
+    	<!-- 美女 -->
+    	<div class="case">
+    		<img src="img/belle/2.jpg" alt="">
+    		<p class="floot">
+    			<i>5</i>
+    			<i>4</i>
+    			<i>3</i>
+    			<i>2</i>
+    			<i>1</i>
+    		</p>
+    	</div>
+    	<!-- 风景 -->
+    	<div class="case">
+    		<img src="img/scenery/1.jpg" alt="">
+    		<p class="floot">
+    			<i>5</i>
+    			<i>4</i>
+    			<i>3</i>
+    			<i>2</i>
+    			<i>1</i>
+    		</p>
+    	</div>
+    	<!--汽车 -->
+    	<div class="case">
+    		<img src="img/car/3.jpg" alt="">
+    		<p class="floot">
+    			<i>5</i>
+    			<i>4</i>
+    			<i>3</i>
+    			<i>2</i>
+    			<i>1</i>
+    		</p>
+    	</div>
+    	<div class="nav-box" id="nav-b">
+    		<a href="javascript:void">美女</a>
+    		<a href="javascript:void">风景</a>
+    		<a href="javascript:void">汽车</a>
+    	</div>
+
+    </div>
+</body>
+	<script>
+		var owarp=document.getElementById('wrap'),
+			oCase=document.getElementsByClassName('case'),
+			oImg=owarp.getElementsByTagName('img'),
+			oP=owarp.getElementsByTagName('p'),		
+			oMenu=document.getElementById('nav-b'),
+			oA=oMenu.getElementsByTagName('a'),
+			num=0,
+			arr=[
+					['img/belle/1.jpg','img/belle/2.jpg','img/belle/3.jpg','img/belle/4.jpg','img/belle/5.jpg'],
+					['img/scenery/1.jpg','img/scenery/2.jpg','img/scenery/3.jpg','img/scenery/4.jpg','img/scenery/5.jpg'],
+					['img/car/1.jpg','img/car/2.jpg','img/car/3.jpg','img/car/4.jpg','img/car/5.jpg']
+				];
+			classAdd(oA[num],'on');//添加类名
+			oCase[num].style.display = 'block';//第0张显示
+			for(var i=0,Aleng=oA.length;i<Aleng;i++){
+				oA[i].index=i;//索引值
+				oP[i].index=i;
+				oA[i].onclick=function(){
+					clear(oA[num],' ');//清除类名
+					classAdd(this,'on');//添加类名
+					oCase[num].style.display = 'none';//隐藏第0张
+					oCase[this.index].style.display = 'block';//显示当面一张
+					num=this.index;	//更新当前的为第0张
+				}
+				oP[i].num=0;//注册一个属性
+				oP[i].onmouseenter=function(){
+					var oI=oP[this.index].querySelectorAll('i');//鼠标滑到时获取当面的oi
+					num=this.index;//更新num
+					for(var e=0;e<oI.length;e++){
+						oI[e].index=e;//索引
+						oI[e].onclick=function(){
+							oI[oP[num].num].className='';//清除当前op获取到的oi的类名
+							classAdd(this,'on');//添加类名
+							oImg[num].src=arr[num][this.index];//对应当面op下面的img的SRC  获取数组中op当面的序号与此序号组数中的oi当前序号中的图片
+							oP[num].num=this.index;//更新op当前属性num的值
+						}
+					}
+				}
+
+			}
+			
+			
+
+				
+
+			//类名添加
+			function classAdd(obj,classN){
+				var arr1=obj.className.split(' '),//分割当面类名
+					arr2=classN.split(' '),//分割要添加的类名
+					Arry=arr1.concat(arr2);//拼接组数
+					for(var i=0,lent=Arry.length;i<lent;i++){//拿数组第一个开始
+						for(e=lent-1;e>i;e--){//拿数组最后一个开始对比
+							if(Arry==''){//如果空的类名就是删除
+								Arry.splice(e, i);
+							}
+							if(Arry[i]==Arry[e]){//如果开始的和最后一个相同  则删除最后一个
+								Arry.splice(e, i);
+							}
+						}
+					}
+					obj.className=Arry.join(' ');//把数组拼接成字符串
+			}
+			//类名清除
+			function clear(obj,classN){
+				var arr1=obj.className.split(' '),//分割当面类名
+					arr2=classN.split(' ');//分割要添加的类名
+					for(var i=0,lent2=arr2.length;i<lent2;i++){//循环要添加的类名数组
+						for( e=arr1.length-1;e>=0;e--){//循环当前类名数组
+							if(arr1[i]==arr2[e]){//如果要添加的类名==当面类名
+								arr1.splice(e,1);//把当面的删除
+							}
+						}
+					}
+					obj.className=arr1.join(' ');//把数组拼接成字符串
+			}
+
+
+
+
+
+	</script>
+
+
+
+</html>
