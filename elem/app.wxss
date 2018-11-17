@@ -1,0 +1,22 @@
+page{
+  height: 100%;
+}
+.container{
+  height: 100%;
+  width: 100%;
+  background-color:beige;
+}  
+
+
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}

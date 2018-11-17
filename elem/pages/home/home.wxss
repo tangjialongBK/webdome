@@ -1,0 +1,141 @@
+/* pages/home/home.wxss */
+.food-container{
+  height: 90vh;
+  width: 100%;
+}
+
+.menu-container{
+  height: 100%;
+  width: 30%;
+  background-color:burlywood;
+}
+.menu-container .list{
+  padding:30rpx 3px;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: bold;
+  color:#fff;
+  border-bottom: 1px solid #ddd;
+}
+.name-container{
+  height: 100%;
+  width: 70%;
+  background: #fff;
+}
+.list-name {
+  width: 92%;
+ padding:5px 0 0 0;
+}
+.list-name .image-name{
+  height: 140rpx;
+  width: 140rpx;
+  margin: 10px 5px;
+  border-radius: 5px;
+}
+.content-name{
+  width: 92%;
+  padding-top:8px;
+}
+.content-name .title{
+  font-size: 13px;
+  font-weight: bold;
+}
+.content-name .introduce{
+  width: 200rpx;
+  font-size: 12px;
+  color:#888;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.evaluate-box{
+ 
+}
+.evaluate-box text{
+  font-size: 12px;
+  color:#ccc;
+}
+.price-box{
+width: 100%;
+ position: relative
+}
+.price-box .price{
+  font-size: 28rpx;
+  color:red;
+}
+.sum-box{
+  position: absolute;
+  top:0;
+  right: 0;
+}
+.sum-box .reduce,.plus{
+  height: 40rpx;
+  width: 40rpx;
+  line-height: 40rpx;
+  border-radius: 50%;
+  background: #000;
+  color:#fff;
+  text-align: center;
+}
+.sum-box .val{
+  padding:0 10px;
+  font-size: 13px;
+  color:red;
+}
+.hover-list{
+  background-color: cornflowerblue;
+}
+
+
+.floor-container{
+  height: 10vh;
+  width: 100%;
+  background: #000;
+}
+.shopping-img{
+  position: relative;
+  top:-50rpx;
+  left:50rpx;
+  height: 100rpx;
+  width: 100rpx;
+  background: #fff;
+  border-radius: 50%;
+  border: 10rpx solid #000;
+}
+.shopping-img image{
+  position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translateY(-50%) translateX(-50%);
+  height: 70rpx;
+  width: 70rpx;
+}
+.total{
+  display: inline-block;
+  margin-top: 60rpx;
+  margin-left: 150rpx;
+  width: 120rpx;
+  height: 60rpx;
+  color:#fff;
+}
+.btn-box{
+  position: relative;
+  width: 100%;
+}
+.btn-box view{
+  position: absolute;
+  right: 0;
+  top:0;
+  width: 200rpx;
+  height: 100%;
+  background-color: limegreen;
+}
+.btn-box view text{
+  position: absolute;
+  top:50%;
+  left:50%;
+  font-size: 50rpx;
+  font-weight: bold;
+  color:#fff;
+  transform: translateY(-50%) translateX(-50%);
+}

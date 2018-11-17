@@ -1,0 +1,46 @@
+<!--pages/home/home.wxml-->
+<view class='container flex flex-column'>
+  <view class='food-container flex flex-row'>
+    <scroll-view class='menu-container' scroll-y>
+      <view wx:for='{{datas}}' class="list {{currentNum===index?'hover-list':''}}" bindtap='currentVal' data-index="{{index}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
+    <scroll-view class='name-container' scroll-y>
+      <view class='list-name flex-row flex' wx:for='{{datas[currentNum].foods}}'>
+        <image src="{{item.image}}" class='image-name'>
+        </image>
+        <view class=' flex-column flex content-name'>
+          <text class='title'>{{item.name}}</text>
+          <text class='introduce' wx:if="{{item.description}}">{{item.description}}</text>
+          <text class='introduce' wx:else="{{item.description}}">家常菜式</text>
+          <view class='evaluate-box flex flex-row'>
+            <text>月销售量{{item.sellCount}}份</text>
+            <text>好评率{{item.rating}}%</text>
+          </view>
+          <view class='price-box'>
+            <text class='price'>￥{{item.price}}</text>
+            <view class='flex-row flex sum-box'>
+              <view class='reduce' bindtap="reduceF" data-index="{{index}}">-</view>
+              <text class='val'>{{item.num}}</text>
+              <view class='plus' bindtap="addF" data-index="{{index}}">+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class='floor-container flex flex-row '>
+    <view>
+      <view class='shopping-img'>
+      <image src='../images/shoppingCart.png'></image>
+      <text class='total'>￥{{total}}</text>
+    </view>
+    </view>
+    <view class='btn-box'>
+       <view>
+          <text bindtap="console">结算</text>
+       </view>
+    </view>
+  </view>
+</view>
