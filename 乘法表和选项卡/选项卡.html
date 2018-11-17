@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			margin: 0;
+			padding:0;
+		}
+		.setwrap{
+			width:200px;
+			height:auto;
+			margin:50px auto;
+			border:1px solid #ccc;
+		}
+		.insetbox{
+			width:100%;
+			height:30px;
+			overflow: hidden;
+			transition: all 0.7s;
+		}
+		.selectbox{
+			height:150px !important;						
+		}
+		.insetbox + .insetbox{
+			margin-top: 3px;
+		}
+		.insetbox span{
+			display: block;
+		}
+		.insetbox span,p{
+			height:30px;
+			width:100%;
+			line-height:30px;
+			text-align: center;
+			border-bottom:1px solid #ccc;
+			transition: all 0.5s;
+		}
+		.insetbox .one{
+			background:#000;
+			color:#fff;
+			font-weight: bold;
+		}
+		.insetbox p.on{
+			background:#000;
+			color:#fff;
+			transition: all 0.5s;
+		}
+	</style>
+<body>
+    <div class="setwrap">
+    	<div class="insetbox">
+    		<span class="one">我的好友</span>
+    		<p>蜡笔小新</p>
+    		<p>金钢互撸娃</p>
+    		<p>大头儿子</p>
+    		<p>海尔兄弟</p>
+    	</div>
+    	<div class="insetbox">
+    		<span class="one">我的同事</span>
+    		<p>小明</p>
+    		<p>小周</p>
+    		<p>小月</p>
+    		<p>小天</p>
+    	</div>
+    	<div class="insetbox">
+    		<span class="one">潭州老师</span>
+    		<p>风屿</p>
+    		<p>木马</p>
+    		<p>乌拉</p>
+    		<p>阿飞</p>
+    	</div>
+    </div>
+</body>
+	<script>
+		var oWdiv=document.getElementsByClassName('setwrap')[0],
+		    oBdiv=oWdiv.getElementsByTagName('div');
+		    oSpan=oWdiv.getElementsByTagName('span'),
+		    oP=oWdiv.getElementsByTagName('p');
+		    var num=0;
+		    oBdiv[num].className="insetbox";
+		    function select(n){
+		    	oBdiv[num].className="insetbox";
+		    	n.className+=' selectbox';	
+		    };
+		    for (var i=0;i<oBdiv.length;i++){
+		    	oBdiv[i].index=i;
+		    	oBdiv[i].onclick=function(){
+		    		select(this);
+		    		num=this.index;
+		    	}
+		    	oWdiv.onmouseleave=function(){
+		    		select('')
+		    	}
+		    };
+		    
+		    (function selectmove(){
+		    	var num=0;
+		    	oP[num].className=" ";
+		    	for(var i=0; i<oP.length;i++){
+			    	oP[i].index=i;
+			    	oP[i].onmouseenter=function(){
+			    		oP[num].className=" ";
+			    		this.className+=' on';
+			    		num=this.index;
+			    	}
+			    	oP[i].onmouseleave=function(){
+			    		this.className=' ';
+			    	}
+			    }	
+		    })();
+			    
+	</script>
+</html>
