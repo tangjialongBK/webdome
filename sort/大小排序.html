@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+			font-size: 14px;
+		}
+		.clearfix:after{
+			content: '';
+			display: block;
+			clear:both;
+		}
+		a{
+			color:#000;
+			text-decoration:none;
+		}
+		ul{
+			list-style: none;
+		}
+		#warp{
+			width:830px;
+			height:532px;
+			margin:30px auto;
+			border-radius: 5px;
+			border:1px solid #bbb;
+		}
+		.heard-b{
+			position:relative;
+			height:30px;
+			line-height: 30px;
+			border-bottom:1px solid #bbb;
+		}
+		.heard-b .btn-onff{
+			padding: 0 15px;			
+		}
+		.hover-b .on{
+			color:red;
+		}
+		.hover-b{
+			position: absolute;
+			opacity: 0;
+			z-index: 999;
+			width:100px;
+			line-height: 30px;
+			bottom:-60px;
+			left:50%;
+			margin-left: -213px;
+			background: #000;
+			transition: all 0.7s;
+		}
+		.hover-b > a{
+			display: block;
+			text-align: center;
+			border-bottom:1px solid #bbb;
+			color:#fff;
+		}
+		.box li{
+			padding: 3px;
+			width:160px;
+			float: left;
+		}
+		.box li > img{
+			width:160px;
+			height:160px;
+			border-radius: 5px;
+			box-shadow: 0 0 20px 0 #ccc ;
+		}
+		.box .footr{
+			text-align:right;
+		}
+		.box .footr p{
+			text-align:center;
+			line-height: 30px;
+			font-size: 12px;
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+		}
+		.box .footr i{
+			display:inline-block;
+			height:50px;
+			width:50px;
+			background: url('img/timg.jpg')no-repeat center/cover;
+			line-height: 60px;
+			text-align: center;
+			font-weight: bold;
+			color:red;
+			font-style: normal;
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+			vertical-align: middle;
+			text-decoration:line-through;
+		}
+		.box .footr span{
+			margin-right: 10px;
+			font-size: 17px;
+			font-weight: bold;
+			vertical-align: middle;
+		}
+	</style>
+<body>
+    <div id="warp">
+    	<div class="heard-b">
+    		<a class='btn-onff' href="javascript:void">种类</a>
+    		<a class='btn-onff' href="javascript:void">价格</a>
+    		<a class='btn-onff' href="javascript:void">活动</a>
+    		<a class='btn-onff  btn-ms' href="javascript:void">价格排序</a>
+    		<div class="hover-b">
+    			<a href="javascript:void">价格从低到高</a>
+    			<a href="javascript:void">价格从高到低</a>
+    		</div>
+    	</div>
+    	<ul class="box clearfix">
+    		<li>
+    			<img src="img/1.jpg" alt="">
+				<div class="footr">
+					<p>9999朵红玫瑰(神器)</p>
+					<span>秒杀价格:</span><i>888.00</i>
+				</div>
+    		</li>
+    		<li>
+    			<img src="img/2.jpg" alt="">
+				<div class="footr">
+					<p>99朵蓝玫瑰(神器)</p>
+					<span>秒杀价格:</span><i>666.00</i>
+				</div>
+    		</li>
+    		<li>
+    			<img src="img/3.jpg" alt="">
+				<div class="footr">
+					<p>99朵黑玫瑰(神器)</p>
+					<span>秒杀价格:</span><i>999.00</i>
+				</div>
+    		</li>
+    		<li>
+    			<img src="img/4.jpg" alt="">
+				<div class="footr">
+					<p>9999朵白玫瑰(神器)</p>
+					<span>秒杀价格:</span><i>1888.00</i>
+				</div>
+    		</li>
+    		<li>
+    			<img src="img/5.jpg" alt="">
+				<div class="footr">
+					<p>9999朵黄玫瑰</p>
+					<span>秒杀价格:</span><i>9998.00</i>
+				</div>
+    		</li>
+    		<li>
+    			<img src="img/6.jpg" alt="">
+				<div class="footr">
+					<p>红百合花</p>
+					<span>秒杀价格:</span><i>500.00</i>
+				</div>
+    		</li>
+    		<li>
+    			<img src="img/7.jpg" alt="">
+				<div class="footr">
+					<p>白百合花</p>
+					<span>秒杀价格:</span><i>800.00</i>
+				</div>
+    		</li>
+    		<li>
+    			<img src="img/8.jpg" alt="">
+				<div class="footr">
+					<p>野菊花(用法三日次，去火奇效)</p>
+					<span>秒杀价格:</span><i>300.00</i>
+				</div>
+    		</li>
+    		<li>
+    			<img src="img/9.jpg" alt="">
+				<div class="footr">
+					<p>康乃馨</p>
+					<span>秒杀价格:</span><i>600.00</i>
+				</div>
+    		</li>
+    		<li>
+    			<img src="img/10.jpg" alt="">
+				<div class="footr">
+					<p>天山雪莲(专治百病可遇不可求)</p>
+					<span>秒杀价格:</span><i>9999999.00</i>
+				</div>
+    		</li>
+    	</ul>
+    </div>
+</body>
+	<script>
+		var oHover=document.getElementsByClassName('hover-b')[0],
+			oBtn=document.getElementsByClassName('btn-ms')[0],
+			ohA=oHover.getElementsByTagName('a'),
+			oUl=document.getElementsByClassName('box')[0],
+			oImg=oUl.getElementsByTagName('img'),
+			oP=oUl.getElementsByTagName('p'),
+			oSpan=oUl.getElementsByTagName('span'),
+			oI=oUl.getElementsByTagName('i'),
+			arr=[],//空数组接收要改变的参数
+			num=0;//更新
+			for(var i=0,imgs=oImg.length;i<imgs;i++){
+				arr[i]=[];//循环10个空数组
+				arr[i][0]=oImg[i].src;
+				arr[i][1]=oP[i].innerHTML;
+				arr[i][2]=oI[i].innerHTML;
+			}//遍历拿到所有对应的值
+			//console.log(arr)
+			ohA[num].className='';
+			oBtn.onmouseenter=function(){
+				oHover.style.opacity ='1';//显示选项
+				for(var i=0,lenght=ohA.length;i<lenght;i++){
+					ohA[i].index=i;//索引下标
+					ohA[i].onclick=function(){
+						oBtn.innerHTML=this.innerHTML;
+						oBtn.style.color='red';
+						ohA[num].className='';
+						this.className='on';
+						num=this.index;
+						if(this.index==0){
+							arr.sort(function(a,b){
+							return a[2]-b[2];//遍历最后一组，也就是价格
+							})
+						}else{
+							arr.sort(function(a,b){
+							return b[2]-a[2];//遍历最后一组，也就是价格
+							})
+						}
+						for(e=0;e<imgs;e++){//重新把数组的内容给对象
+							oImg[e].src=arr[e][0];
+							oP[e].innerHTML=arr[e][1];
+							oI[e].innerHTML=arr[e][2];
+						}
+						//console.log(arr[1][0])
+					}
+				}
+			}
+			oHover.onmouseleave=function(){
+				oHover.style.opacity='0';//移动隐藏
+			}
+	</script>
+</html>
